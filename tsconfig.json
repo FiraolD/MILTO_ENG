@@ -1,16 +1,15 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"]
   },
-  "exclude": [
-    "node_modules",
-    "src/components/ui" // Add the directory you want to skip here
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

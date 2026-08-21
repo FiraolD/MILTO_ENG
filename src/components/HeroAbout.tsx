@@ -95,24 +95,7 @@ export function HeroSection() {
                 Explore Services{" "}
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a
-                href="#about"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
-              >
-                Learn More
-              </a>
-              <a
-                href="/news"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
-              >
-                News
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
-              >
-                Contact Us
-              </a>
+              
             </motion.div>
 
             <motion.div
