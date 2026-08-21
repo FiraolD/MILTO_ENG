@@ -10,7 +10,9 @@ const router = Router();
 // ---------------------------------------------------------------------------
 // File upload storage (server/uploads, served at /uploads)
 // ---------------------------------------------------------------------------
-const UPLOAD_DIR = path.join(process.cwd(), "server", "uploads");
+// Override with UPLOAD_DIR env var in production (e.g. a persistent disk on Render)
+const UPLOAD_DIR =
+  process.env.UPLOAD_DIR || path.join(process.cwd(), "server", "uploads");
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }

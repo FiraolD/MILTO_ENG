@@ -38,7 +38,12 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded media files (stored on disk, referenced as /uploads/...)
-app.use("/uploads", express.static(path.join(process.cwd(), "server", "uploads")));
+app.use(
+  "/uploads",
+  express.static(
+    process.env.UPLOAD_DIR || path.join(process.cwd(), "server", "uploads")
+  )
+);
 
 // ---------------------------------------------------------------------------
 // Health check

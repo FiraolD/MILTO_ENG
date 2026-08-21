@@ -25,3 +25,6 @@ npm-debug.log*
 
 # Build artifacts
 build.log
+
+# Local media uploads (served at /uploads)
+server/uploads/

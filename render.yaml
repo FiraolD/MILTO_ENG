@@ -1,0 +1,34 @@
+# Render Blueprint — deploy the Express backend from this repo.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: milto-engineering-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run server:build
+    startCommand: npm run server:start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: media-uploads
+      mountPath: /opt/uploads
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Persistent disk where multer writes uploaded media files
+      - key: UPLOAD_DIR
+        value: /opt/uploads
+      # Set these manually in the Render dashboard (secrets):
+      - key: NEON_DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Comma-separated list of allowed origins, e.g. your Vercel domain
+      - key: CORS_ORIGIN
+        sync: false
