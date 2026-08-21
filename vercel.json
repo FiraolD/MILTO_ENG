@@ -1,19 +1,11 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://milto-engineering-api.onrender.com/api/:path*"
-    },
-    {
-      "source": "/uploads/:path*",
-      "destination": "https://milto-engineering-api.onrender.com/uploads/:path*"
-    },
-    {
-      "source": "/((?!api|uploads).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
