@@ -4,6 +4,7 @@ import {
   Play, X, CaretLeft, CaretRight, FilmSlate, ImageSquare,
 } from "@phosphor-icons/react";
 import { galleryApi } from "@/lib/api";
+import { isDirectVideoFile } from "@/lib/mediaUtils";
 
 interface GalleryItemData {
   id: string;
@@ -256,13 +257,22 @@ export default function GallerySection() {
             >
               {filtered[lightboxIndex].media_type === "video" ? (
                 <div className="aspect-video rounded-2xl overflow-hidden bg-black">
-                  <iframe
-                    src={filtered[lightboxIndex].url}
-                    title={filtered[lightboxIndex].title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  {isDirectVideoFile(filtered[lightboxIndex].url) ? (
+                    <video
+                      src={filtered[lightboxIndex].url}
+                      className="w-full h-full"
+                      controls
+                      autoPlay
+                    />
+                  ) : (
+                    <iframe
+                      src={filtered[lightboxIndex].url}
+                      title={filtered[lightboxIndex].title}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  )}
                 </div>
               ) : (
                 <img

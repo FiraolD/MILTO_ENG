@@ -5,6 +5,7 @@ import {
 } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { articlesApi } from "@/lib/api";
+import { isDirectVideoFile } from "@/lib/mediaUtils";
 import type { NewsArticle } from "@/types";
 
 function formatDate(date: string | null): string {
@@ -42,7 +43,7 @@ export default function NewsPage() {
   const rest = articles.slice(1);
 
   return (
-    <main className="pt-16 lg:pt-20 min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       {/* Page header */}
       <section className="bg-gradient-to-br from-blue-950 to-blue-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
@@ -244,13 +245,22 @@ export default function NewsPage() {
               {/* Media */}
               {selected.video_url ? (
                 <div className="aspect-video bg-black rounded-t-2xl overflow-hidden">
-                  <iframe
-                    src={selected.video_url}
-                    title={selected.title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  {isDirectVideoFile(selected.video_url) ? (
+                    <video
+                      src={selected.video_url}
+                      className="w-full h-full"
+                      controls
+                      autoPlay
+                    />
+                  ) : (
+                    <iframe
+                      src={selected.video_url}
+                      title={selected.title}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  )}
                 </div>
               ) : selected.image_url ? (
                 <img

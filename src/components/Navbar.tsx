@@ -117,10 +117,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
-          : "bg-transparent"
+          : "bg-white border-b border-gray-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,27 +150,29 @@ export default function Navbar() {
           <nav className="hidden lg:flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <span key={link.href} className="contents">
-                <button
-                  onClick={() => handleNav(link.href)}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
-                    activeSection === link.href && !onAnnouncementRoute
-                      ? "text-blue-900 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-900 hover:bg-blue-50/50"
-                  }`}
-                >
-                  {link.label}
-                </button>
+                {link.label === "Contact" ? (
+                  <button
+                    onClick={() => handleNav(link.href)}
+                    className="ml-2 flex items-center gap-2 px-4 py-2.5 bg-blue-900 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition-all shadow-sm"
+                  >
+                    <Phone size={16} weight="fill" />
+                    {link.label}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleNav(link.href)}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+                      activeSection === link.href && !onAnnouncementRoute
+                        ? "text-blue-900 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-900 hover:bg-blue-50/50"
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                )}
                 {link.label === "Projects" && renderAnnouncementDropdown()}
               </span>
             ))}
-           
-            <a
-              href="tel:+251-901-000960"
-              className="ml-3 flex items-center gap-2 px-4 py-2.5 bg-blue-900 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition-all shadow-sm"
-            >
-              <Phone size={16} weight="fill" />
-              <span className="hidden xl:inline">Get in Touch</span>
-            </a>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -199,12 +201,17 @@ export default function Navbar() {
                 <div key={link.href}>
                   <button
                     onClick={() => handleNav(link.href)}
-                    className={`block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                      activeSection === link.href && !onAnnouncementRoute
-                        ? "text-blue-900 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-900 hover:bg-blue-50"
-                    }`}
+                    className={
+                      link.label === "Contact"
+                        ? "flex items-center justify-center gap-2 w-full mt-2 px-5 py-3 bg-blue-900 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition-colors"
+                        : `block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                            activeSection === link.href && !onAnnouncementRoute
+                              ? "text-blue-900 bg-blue-50"
+                              : "text-gray-700 hover:text-blue-900 hover:bg-blue-50"
+                          }`
+                    }
                   >
+                    {link.label === "Contact" && <Phone size={16} weight="fill" />}
                     {link.label}
                   </button>
                   {link.label === "Projects" && (
@@ -261,13 +268,6 @@ export default function Navbar() {
               >
                 <ShieldCheck size={16} /> Admin Panel
               </button>
-              <a
-                href="tel:+251-11-XXX-XXXX"
-                className="flex items-center gap-2 w-full mt-2 px-5 py-3 bg-blue-900 text-white text-sm font-semibold rounded-lg hover:bg-blue-800 transition-colors"
-              >
-                <Phone size={16} weight="fill" />
-                Call Us
-              </a>
             </div>
           </motion.div>
         )}

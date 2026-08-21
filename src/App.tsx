@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import PublicViews from "./components/PublicViews";
 import Footer from "./components/Footer";
 import NewsPage from "./components/NewsPage";
+import NewsTicker from "./components/NewsTicker";
 import AnnouncementPage from "./components/AnnouncementPage";
 import AdminAuth from "./components/Admin/AdminAuth";
 import AdminDashboard from "./components/Admin/AdminDashboard";
@@ -54,9 +55,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 antialiased">
+      {/* News ticker slides above the header on the home page */}
+      {location.pathname === "/" && <NewsTicker />}
       <Navbar />
       <Routes>
-        <Route path="/news" element={<NewsPage />} />
+        <Route path="News" element={<NewsPage />} />
         <Route path="/vacancy" element={<AnnouncementPage type="vacancy" />} />
         <Route path="/bid" element={<AnnouncementPage type="bid" />} />
         <Route path="*" element={<PublicViews />} />

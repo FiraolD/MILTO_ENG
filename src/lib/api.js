@@ -37,9 +37,14 @@ async function request(
 ) {
   const token = getToken();
   const headers = {
-    "Content-Type": "application/json",
     ...(options.headers ),
   };
+
+  // Only set JSON content-type for non-FormData bodies (multipart uploads
+  // need the browser to set its own boundary)
+  if (!(options.body instanceof FormData)) {
+    headers["Content-Type"] = "application/json";
+  }
 
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
@@ -158,14 +163,30 @@ export const navigationApi = resource
 
 ("navigation");
 
-export const mediaApi = resource
+export const mediaApi = {
+  ...resource
 
 
 
 
 
 
-("media");
+("media"),
+  upload: (file, alt, section) => {
+    const body = new FormData();
+    body.append("file", file);
+    if (alt) body.append("alt", alt);
+    if (section) body.append("section", section);
+    return request
+
+
+
+
+
+
+("/media/upload", { method: "POST", body });
+  },
+};
 
 export const inquiriesApi = {
   ...resource

@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { Plus, PencilSimple, Trash, X, Check } from "@phosphor-icons/react";
+import { Plus, PencilSimple, Trash, X, Check, FilmSlate, ImageSquare } from "@phosphor-icons/react";
 import { articlesApi } from "@/lib/api";
 import { toast } from "sonner";
 import { SkeletonRows } from "./AdminPanels";
+import { MediaUrlField } from "./MediaPicker";
 
 interface ArticleRow {
   id: string;
@@ -13,6 +14,8 @@ interface ArticleRow {
   author: string;
   category: string;
   type: string;
+  image_url: string;
+  video_url: string;
   is_published: boolean;
   published_at: string | null;
   created_at: string;
@@ -25,6 +28,8 @@ const EMPTY_FORM = {
   excerpt: "",
   author: "",
   category: "",
+  image_url: "",
+  video_url: "",
   is_published: false,
   published_at: null as string | null,
 };
@@ -70,6 +75,8 @@ export default function NewsPanel() {
       excerpt: a.excerpt,
       author: a.author,
       category: a.category,
+      image_url: a.image_url ?? "",
+      video_url: a.video_url ?? "",
       is_published: a.is_published,
       published_at: a.published_at,
     });
@@ -127,6 +134,8 @@ export default function NewsPanel() {
         author: a.author,
         category: a.category,
         type: "news",
+        image_url: a.image_url ?? "",
+        video_url: a.video_url ?? "",
         is_published: !a.is_published,
         published_at: a.published_at ?? (!a.is_published ? new Date().toISOString() : null),
       };
@@ -192,6 +201,27 @@ export default function NewsPanel() {
           </div>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
+              <label className={labelCls}>Image URL</label>
+              <div className="flex items-center gap-2">
+                <ImageSquare size={16} className="text-gray-400 shrink-0" />
+                <MediaUrlField value={form.image_url} onChange={(url) => setForm({ ...form, image_url: url })} mediaType="image" />
+              </div>
+            </div>
+            <div>
+              <label className={labelCls}>Video URL (YouTube embed link or uploaded video)</label>
+              <div className="flex items-center gap-2">
+                <FilmSlate size={16} className="text-gray-400 shrink-0" />
+                <MediaUrlField value={form.video_url} onChange={(url) => setForm({ ...form, video_url: url })} mediaType="video" placeholder="https://www.youtube.com/embed/..." />
+              </div>
+            </div>
+          </div>
+          {form.image_url && (
+            <div className="mt-3">
+              <img src={form.image_url} alt="Preview" className="h-24 rounded-lg object-cover border border-slate-200" onError={(e) => ((e.target as HTMLImageElement).style.display = "none")} />
+            </div>
+          )}
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
               <label className={labelCls}>Author</label>
               <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} className={inputCls} />
             </div>
@@ -251,6 +281,16 @@ export default function NewsPanel() {
                   </span>
                   {a.category && (
                     <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{a.category}</span>
+                  )}
+                  {a.image_url && (
+                    <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded flex items-center gap-1">
+                      <ImageSquare size={11} /> Image
+                    </span>
+                  )}
+                  {a.video_url && (
+                    <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded flex items-center gap-1">
+                      <FilmSlate size={11} /> Video
+                    </span>
                   )}
                   {a.published_at && (
                     <span className="text-xs text-gray-400">

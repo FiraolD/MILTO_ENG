@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 import { errorHandler } from "./middleware/errorHandler";
 import { query } from "./db";
 
@@ -35,6 +36,9 @@ app.use(
 );
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Serve uploaded media files (stored on disk, referenced as /uploads/...)
+app.use("/uploads", express.static(path.join(process.cwd(), "server", "uploads")));
 
 // ---------------------------------------------------------------------------
 // Health check

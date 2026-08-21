@@ -10,8 +10,8 @@ interface TickerArticle {
 }
 
 /**
- * Continuously sliding news ticker shown between the navbar and the hero.
- * Clicking any headline routes to the standalone /news page.
+ * Continuously sliding news ticker shown at the very top of the page,
+ * above the navbar. Clicking any headline routes to the standalone /news page.
  */
 export default function NewsTicker() {
   const [headlines, setHeadlines] = useState<TickerArticle[]>([]);
@@ -40,14 +40,14 @@ export default function NewsTicker() {
   const track = [...headlines, ...headlines];
 
   return (
-    <div className="mt-16 lg:mt-20 bg-blue-950 border-b border-blue-900/50">
+    <div className="bg-blue-950 border-b border-blue-900/50">
       <div className="flex items-stretch overflow-hidden">
         {/* Label */}
         <button
           onClick={() => navigate("/news")}
           className="flex items-center gap-2 shrink-0 px-4 py-2.5 bg-blue-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-blue-800 transition-colors"
         >
-          <Newspaper size={15} weight="fill" />
+          <Newspaper size={30} weight="fill" />
           <span className="hidden sm:inline">Latest News</span>
         </button>
 
@@ -58,7 +58,7 @@ export default function NewsTicker() {
               <button
                 key={`${item.id}-${i}`}
                 onClick={() => navigate("/news")}
-                className="group flex items-center gap-2 px-6 py-2.5 text-sm text-blue-100 hover:text-white whitespace-nowrap transition-colors"
+                className="group flex items-center gap-2 px-8 py-2.5 text-sm text-blue-100 hover:text-white whitespace-nowrap transition-colors"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
                 {item.category && (

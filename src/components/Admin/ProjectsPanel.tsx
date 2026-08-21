@@ -5,6 +5,7 @@ import {
 import { projectsApi } from "@/lib/api";
 import { toast } from "sonner";
 import { SkeletonRows } from "./AdminPanels";
+import { MediaUrlField } from "./MediaPicker";
 
 interface ProjectRow {
   id: string;
@@ -197,10 +198,10 @@ export default function ProjectsPanel() {
             <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={4} className={inputCls} />
           </div>
           <div className="mt-4">
-            <label className={labelCls}>Video URL (YouTube embed link)</label>
+            <label className={labelCls}>Video URL (YouTube embed link or uploaded video)</label>
             <div className="flex items-center gap-2">
               <FilmSlate size={16} className="text-gray-400 shrink-0" />
-              <input value={form.video_url} onChange={(e) => setForm({ ...form, video_url: e.target.value })} className={inputCls} placeholder="https://www.youtube.com/embed/..." />
+              <MediaUrlField value={form.video_url} onChange={(url) => setForm({ ...form, video_url: url })} mediaType="video" placeholder="https://www.youtube.com/embed/..." />
             </div>
           </div>
           <div className="mt-4">
@@ -209,13 +210,12 @@ export default function ProjectsPanel() {
               {form.images.map((url, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <ImageSquare size={16} className="text-gray-400 shrink-0" />
-                  <input
+                  <MediaUrlField
                     value={url}
-                    onChange={(e) =>
-                      setForm({ ...form, images: form.images.map((u, j) => (j === i ? e.target.value : u)) })
+                    onChange={(v) =>
+                      setForm({ ...form, images: form.images.map((u, j) => (j === i ? v : u)) })
                     }
-                    className={inputCls}
-                    placeholder="https://..."
+                    mediaType="image"
                   />
                   <button
                     onClick={() => setForm({ ...form, images: form.images.filter((_, j) => j !== i) })}

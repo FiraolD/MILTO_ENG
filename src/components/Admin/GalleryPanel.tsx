@@ -3,6 +3,7 @@ import { Plus, PencilSimple, Trash, X, Check, Play } from "@phosphor-icons/react
 import { galleryApi } from "@/lib/api";
 import { toast } from "sonner";
 import { SkeletonRows } from "./AdminPanels";
+import { MediaUrlField } from "./MediaPicker";
 
 interface GalleryRow {
   id: string;
@@ -179,13 +180,21 @@ export default function GalleryPanel() {
           </div>
           <div className="mt-4">
             <label className={labelCls}>
-              {form.media_type === "video" ? "Video Embed URL (YouTube embed link)" : "Image URL"} *
+              {form.media_type === "video" ? "Video URL (YouTube embed link or uploaded video)" : "Image URL"} *
             </label>
-            <input value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} className={inputCls} placeholder="https://..." />
+            <MediaUrlField
+              value={form.url}
+              onChange={(url) => setForm({ ...form, url })}
+              mediaType={form.media_type === "video" ? "video" : "image"}
+            />
           </div>
           <div className="mt-4">
             <label className={labelCls}>Thumbnail URL (optional – used as card preview)</label>
-            <input value={form.thumbnail_url} onChange={(e) => setForm({ ...form, thumbnail_url: e.target.value })} className={inputCls} placeholder="https://..." />
+            <MediaUrlField
+              value={form.thumbnail_url}
+              onChange={(url) => setForm({ ...form, thumbnail_url: url })}
+              mediaType="image"
+            />
           </div>
           <div className="mt-4">
             <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">

@@ -13,7 +13,8 @@ export type TabId =
   | "projects"
   | "gallery"
   | "announcements"
-  | "news";
+  | "news"
+  | "team";
 
 export function SkeletonRows({ count }: { count: number }) {
   return (

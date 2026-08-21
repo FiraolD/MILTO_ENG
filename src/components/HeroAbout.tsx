@@ -21,11 +21,17 @@ const stagger = {
   animate: { transition: { staggerChildren: 0.1 } },
 };
 
+/**
+ * Hero image shown in the right-hand column.
+ * Swap this path (or replace with a URL) to use a different image.
+ */
+const HERO_IMAGE = "/gilles-rolland-monnet-Lf4XJSWQoRg-unsplash.jpg";
+
 export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 overflow-hidden"
+      className="relative min-h-screen flex bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 overflow-hidden"
     >
       {/* Geometric background pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
@@ -34,97 +40,120 @@ export function HeroSection() {
       <div className="absolute top-20 right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/10 blur-3xl" />
       <div className="absolute bottom-20 left-[-10%] w-[30%] h-[30%] rounded-full bg-cyan-500/10 blur-3xl" />
 
-      <motion.div
-        initial="initial"
-        animate="animate"
-        variants={stagger}
-        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40"
-      >
-        <div className="max-w-3xl">
+      <div className="relative self-stretch w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-0 h-200">
+          {/* Left: current hero content */}
           <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-blue-200 text-xs font-medium mb-8 backdrop-blur-sm"
+            initial="initial"
+            animate="animate"
+            variants={stagger}
+            className="max-w-3xl flex flex-col items-start justify-center h-full px-4 py-16 sm:px-8 lg:py-24 lg:pr-12 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]"
           >
-            <ShieldCheck size={14} weight="fill" />
-            <span>Ethiopian Grade One Consultant</span>
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6"
-          >
-            Engineering{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
-              Water Resources
-            </span>
-            <br />
-            <span className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-normal text-blue-200/90 block mt-3">
-              Understanding the Earth. Building a Sustainable Future.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg sm:text-xl text-blue-200/80 leading-relaxed max-w-2xl mb-10"
-          >
-            {BRAND.shortName} provides comprehensive water resources and environmental consulting
-            services across Ethiopia — from groundwater exploration and geotechnical investigation
-            to GIS mapping and engineering design.
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <a
-              href="#services"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/25"
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-blue-200 text-xs font-medium mb-8 backdrop-blur-sm"
             >
-              Explore Services{" "}
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#about"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
+              <ShieldCheck size={14} weight="fill" />
+              <span>Ethiopian Grade One Consultant</span>
+            </motion.div>
+        
+            <motion.h1
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-6"
             >
-              Learn More
-            </a>
-            <a
-              href="/news"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
-            >
-              News
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
-            >
-              Contact Us
-            </a>
-          </motion.div>
+              Engineering{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
+                Water Resources
+              </span>
+              <br />
+              <span className="text-xl sm:text-2xl lg:text-3xl font-normal text-blue-200/90 block mt-3">
+                Understanding the Earth. Building a Sustainable Future.
+              </span>
+            </motion.h1>
 
-          <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-12 border-t border-white/10"
-          >
-            {STATS.map((stat) => (
-              <motion.div
-                key={stat.label}
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300 }}
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-base sm:text-lg text-blue-200/80 leading-relaxed max-w-2xl mb-10"
+            >
+              {BRAND.shortName} provides comprehensive water resources and environmental consulting
+              services across Ethiopia — from groundwater exploration and geotechnical investigation
+              to GIS mapping and engineering design.
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex flex-col sm:flex-row flex-wrap gap-4"
+            >
+              <a
+                href="#services"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-500 hover:bg-blue-400 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/25"
               >
-                <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
-                <p className="text-sm text-blue-300/70 mt-1">{stat.label}</p>
-              </motion.div>
-            ))}
+                Explore Services{" "}
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="#about"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
+              >
+                Learn More
+              </a>
+              <a
+                href="/news"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
+              >
+                News
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all backdrop-blur-sm"
+              >
+                Contact Us
+              </a>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-12 border-t border-white/10"
+            >
+              {STATS.map((stat) => (
+                <motion.div
+                  key={stat.label}
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</p>
+                  <p className="text-sm text-blue-300/70 mt-1">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right: hero image with gradient fading into the content side */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.14 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.25 }}
+            className="relative hidden lg:block self-stretch h-full w-full rounded-3xl overflow-hidden"
+          >
+            <img
+              src={HERO_IMAGE}
+              alt="MILTO Engineering field work"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/* Vector gradient overlay: solid hero color on the content side fading to transparent */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-900/40 to-transparent" />
+            {/* Blurred edge where the image meets the content column */}
+            <div className="absolute inset-y-0 left-0 w-44 backdrop-blur-md [mask-image:linear-gradient(to_right,black,transparent)]" />
+            {/* Soft bottom blend */}
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-blue-950/70 to-transparent" />
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText, Globe, Image, Envelope, SignOut, List,
-  Briefcase, ImagesSquare, Megaphone, Newspaper,
+  Briefcase, ImagesSquare, Megaphone, Newspaper, Users,
 } from "@phosphor-icons/react";
 import type { TabId } from "./AdminPanels";
 import { SiteContentPanel, SeoPanel } from "./AdminPanels";
@@ -13,6 +13,7 @@ import ProjectsPanel from "./ProjectsPanel";
 import GalleryPanel from "./GalleryPanel";
 import AnnouncementsPanel from "./AnnouncementsPanel";
 import NewsPanel from "./NewsPanel";
+import TeamPanel from "./TeamPanel";
 
 interface AdminDashboardProps {
   user: { id: string; email: string };
@@ -25,6 +26,7 @@ const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
   { id: "gallery", label: "Gallery", icon: <ImagesSquare size={18} /> },
   { id: "news", label: "News", icon: <Newspaper size={18} /> },
   { id: "announcements", label: "Announcements", icon: <Megaphone size={18} /> },
+  { id: "team", label: "Team", icon: <Users size={18} /> },
   { id: "seo", label: "SEO Metadata", icon: <Globe size={18} /> },
   { id: "nav", label: "Navigation", icon: <List size={18} /> },
   { id: "media", label: "Media Assets", icon: <Image size={18} /> },
@@ -108,6 +110,7 @@ export default function AdminDashboard({ user, onSignOut }: AdminDashboardProps)
               {activeTab === "gallery" && <GalleryPanel />}
               {activeTab === "news" && <NewsPanel />}
               {activeTab === "announcements" && <AnnouncementsPanel />}
+              {activeTab === "team" && <TeamPanel />}
               {activeTab === "seo" && <SeoPanel />}
               {activeTab === "nav" && <NavPanel />}
               {activeTab === "media" && <MediaPanel />}
