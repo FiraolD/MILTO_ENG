@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import checker from "vite-plugin-checker";
+import { fileURLToPath } from 'url';
 
 import dns from "node:dns";
 
